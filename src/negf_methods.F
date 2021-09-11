@@ -214,11 +214,19 @@ CONTAINS
       END IF
 
       IF (log_unit > 0) THEN
-         WRITE (log_unit, '(/,T2,A,T62)') "COMPUTE THE RELEVANT HAMILTONIAN MATRICES"
+         WRITE (log_unit, '(/,T2,79("-"))')
+         WRITE (log_unit, '(T19,A,T62)') "THE RELEVANT HAMILTONIAN AND OVERLAP MATRICES"
+         WRITE (log_unit, '(T2,79("-"))')
       END IF
 
       CALL negf_sub_env_create(sub_env, negf_control, blacs_env, global_env%blacs_grid_layout, global_env%blacs_repeatable)
       CALL negf_env_create(negf_env, sub_env, negf_control, force_env, negf_mixing_section, log_unit)
+      
+      IF (log_unit > 0) THEN
+         WRITE (log_unit, '(/,T2,79("-"))')
+         WRITE (log_unit, '(T39,A,T62)') "NEGF"
+         WRITE (log_unit, '(T2,79("-"))')
+      END IF
 
       IF (log_unit > 0 .AND. verbose_output) THEN
          DO icontact = 1, SIZE(negf_control%contacts)
